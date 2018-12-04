@@ -1,24 +1,79 @@
-<html>
-<header>
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<head>
+    <title>Wadhwani AI TB CSV visualizer</title>
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</header>
-</header>
-<body>     
-    <form action = "http://localhost:5000/uploader" method = "POST" enctype = "multipart/form-data" class="form-inline">
-        <div class="form-group mb-2">
-            <input type = "file" name = "csv-file" class="btn btn-secondary" />
-        </div>
-        <div class ="form-group mx-sm-3 mb-2">
-            <input type = "submit" class="btn btn-primary mb-2"/>
-        </div>
-        
-    </form>  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link href="//getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+
+    <script src="/static/js/jquery-3.1.1.js"></script>
+
+    <style>
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+         
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <form action="http://localhost:5000/uploader" method="POST" enctype="multipart/form-data" class="form-inline">
+            <legend>Wadhwani AI TB Data Visualizer</legend>
+
+            <!-- <div class="form-group">
+                <label for="update">CSV Type</label>
+                <br />
+                <input type="radio" name="update" value="upload" checked> Upload the Current Data<br>
+                <input type="radio" name="update" value="update"> Update the Current Data<br>
+            </div>
+            <br /><br /> -->
+            <div class="form-group">
+                <label for="date">Date of Creation of CSV</label>
+                <br />
+                <input type="date" id="date" name="date">
+
+            </div>
+            <br /><br />
+            <div class="form-group">
+                <label for="txtPost">Please select the CSV file to upload </label>
+                <br />
+                <input type = "file" name = "csv-file" class="btn btn-secondary" id = "file-upload"/>
+            </div>
+            <br />
+            <br />
+            <div class="form-group">
+                <p class="text-center">
+                    <input id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit" value="Publish" />
+                </p>
+            </div>
+        </form>
+
+        <footer class="footer">
+            <p>©Wadhwani AI 2018</p>
+        </footer>
+
+    </div>
 </body>
+
 </html>
