@@ -83,6 +83,18 @@ def form():
     return render_template('upload.html')
 
 
+@app.route('/visualize')
+def visualize():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    sql = "Select state_name,populations_in_lakhs,total_tb_patients_notified from tb_case_notification;"
+    cursor.execute(sql)
+    conn.commit()
+    records = cursor.fetchall()
+    print records
+    return render_template('heatmap.html',data = records)
+
+
 @app.route('/uploader', methods=['POST'])
 def upload_file():
     if request.method == 'POST':
@@ -114,11 +126,13 @@ def upload_file():
         dict_of_data = {i: (0 if row[i].rstrip("%") == '' else float(
             row[i].rstrip("%"))) for i in range(1, len(row))}
         state_dictionary.update(dict_of_data)
-        parsed_json_data = json.dumps(state_dictionary)
+        # parsed_json_data = json.dumps(state_dictionary)
         # print parsed_json_data
         #   fresh upload or update the current database
         upload_parsed_data_to_db(state_dictionary)
-    return parsed_json_data
+
+    return render_template('visualize.html', records=state_dictionary,message = "Data is successfully uploaded to database."),200
+    # return parsed_json_data
 
 
 if __name__ == '__main__':
