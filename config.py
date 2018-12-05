@@ -1,37 +1,43 @@
 class Config(object):
-	"""
-	Common Configuration
-	"""
+    """
+    Common Configuration
+    """
 
-	# Put any configurations here that are common  accross all environments
-	DEBUG = True
+    # Put any configurations here that are common  accross all environments
+    DEBUG = True
+
+
 class DevelopmentConfig(Config):
-	"""
-	Development configurations
-	"""
-	
-	MySQL = True
+    """
+    Development configurations
+    """
+
+    MySQL = True
+
 
 class ProductionConfig(Config):
-	"""
-	Production configuration
-	"""
+    """
+    Production configuration
+    """
 
-	DEBUG = False
+    DEBUG = False
+
 
 app_config = {
-	'development': DevelopmentConfig,
-	'production': ProductionConfig
+    'development': DevelopmentConfig,
+    'production': ProductionConfig
 }
 
+
 class TestingConfig(Config):
-	"""
-	Production configurations
-	"""
-	TESTING = True
+    """
+    Production configurations
+    """
+    TESTING = True
+
 
 app_config = {
-	'development': DevelopmentConfig,
-	'production': ProductionConfig,
-	'testing': TestingConfig
+    'development': DevelopmentConfig,
+    'production': ProductionConfig,
+    'testing': TestingConfig
 }

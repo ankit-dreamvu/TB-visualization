@@ -1,9 +1,69 @@
-<table border="1" cellpadding="5" cellspacing="5">
-    {% for row in data %}
-        <tr>
-        {% for d in row %}
-            <td>{{ d }}</td>
-        {% endfor %}
-        </tr>
-    {% endfor %}
-    </table>
+<html>
+<head>
+    <title>Wadhwani AI TB CSV visualizer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['geochart'],
+            'mapsApiKey': 'AIzaSyBZ6wBYXHeEdtTPkU-GnIwMJsV6mcyuFDM'
+        });
+        google.charts.setOnLoadCallback(drawRegionsMap);
+
+        var listOfState = [];
+        var listOfPopulation = [];
+        var listOfTbPatientsNotified = ['Total TB Patients Notified'];
+
+        '{% for row in data %}'
+        listOfState.push('{{row[0]}}');
+        listOfPopulation.push('{{row[1]}}');
+        listOfTbPatientsNotified.push('{{row[2]}}');
+        '{% endfor %}'
+
+        var mapList = [];
+        mapList.push(['State', 'Population']);
+        for (var i = 0; i < listOfState.length; i++) {
+            var temp = [];
+            temp.push(listOfState[i]);
+            temp.push(listOfPopulation[i]);
+            mapList.push(temp);
+        }
+
+        function drawRegionsMap() {
+            var data = google.visualization.arrayToDataTable(mapList);
+
+            var options = {
+                region: 'IN',
+                displayMode: 'regions',
+                resolution: 'provinces'
+            };
+
+            var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <legend>Wadhwani AI TB Data Visualizer</legend>
+        <br/>
+        <div id="regions_div" style="width: 900px; height: 500px;"></div>
+
+        <table border="1" cellpadding="2" cellspacing="2">
+            {% for row in data %}
+            <tr>
+                {% for d in row %}
+                <td>{{ d }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        <footer class="footer">
+                <p>©Wadhwani AI 2018</p>
+        </footer>
+    </div>
+</body>
+
+</html>

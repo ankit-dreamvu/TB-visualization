@@ -91,8 +91,10 @@ def visualize():
     cursor.execute(sql)
     conn.commit()
     records = cursor.fetchall()
-    print records
-    return render_template('heatmap.html',data = records)
+    # print records
+    for row in records:
+        print row
+    return render_template('heatmap.html', data=records)
 
 
 @app.route('/uploader', methods=['POST'])
@@ -131,7 +133,7 @@ def upload_file():
         #   fresh upload or update the current database
         upload_parsed_data_to_db(state_dictionary)
 
-    return render_template('visualize.html', records=state_dictionary,message = "Data is successfully uploaded to database."),200
+    return render_template('visualize.html', records=state_dictionary, message="Data is successfully uploaded to database."), 200
     # return parsed_json_data
 
 
