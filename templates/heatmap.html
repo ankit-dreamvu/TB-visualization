@@ -22,10 +22,10 @@
 
         var mapList = [];
         mapList.push(['State', 'Population']);
-        for (var i = 0; i < listOfState.length; i++) {
+        for (var i = 1; i < listOfState.length; i++) {
             var temp = [];
             temp.push(listOfState[i]);
-            temp.push(listOfPopulation[i]);
+            temp.push(parseInt(listOfPopulation[i])*100000);
             mapList.push(temp);
         }
 
