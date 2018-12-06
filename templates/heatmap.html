@@ -21,6 +21,7 @@
         listOfTbPatientsNotified.push('{{row[2]}}');
         '{% endfor %}'
 
+
         var mapStatePopulationList = [];
         mapStatePopulationList.push(['State', 'Population'],[listOfState[0],parseInt(listOfPopulation[0]) * 100000]);
         for (var i = 1; i < listOfState.length; i++) {
@@ -38,7 +39,7 @@
             temp.push(parseInt(listOfTbPatientsNotified[i]));
             console.log(temp[0],temp[1]);
             mapStateTbList.push(temp);
-        }
+
 
         function drawRegionsMap() {
             var populationData = google.visualization.arrayToDataTable(mapStatePopulationList);
