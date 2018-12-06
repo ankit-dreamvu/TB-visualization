@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <title>Wadhwani AI TB CSV visualizer</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -20,27 +21,46 @@
         listOfTbPatientsNotified.push('{{row[2]}}');
         '{% endfor %}'
 
-        var mapList = [];
-        mapList.push(['State', 'Population']);
-        for (var i = 0; i < listOfState.length; i++) {
+        var mapStatePopulationList = [];
+        mapStatePopulationList.push(['State', 'Population'],[listOfState[0],parseInt(listOfPopulation[0]) * 100000]);
+        for (var i = 1; i < listOfState.length; i++) {
             var temp = [];
             temp.push(listOfState[i]);
-            temp.push(listOfPopulation[i]);
-            mapList.push(temp);
+            temp.push(parseInt(listOfPopulation[i]) * 100000);
+            mapStatePopulationList.push(temp);
+        }
+
+        var mapStateTbList = [];
+        mapStateTbList.push(['State', 'Total TB Patients Notified'],[listOfState[0],parseInt(listOfPopulation[0])]);
+        for (var i = 1; i < listOfState.length; i++) {
+            var temp = [];
+            temp.push(listOfState[i]);
+            temp.push(parseInt(listOfTbPatientsNotified[i]));
+            console.log(temp[0],temp[1]);
+            mapStateTbList.push(temp);
         }
 
         function drawRegionsMap() {
-            var data = google.visualization.arrayToDataTable(mapList);
+            var populationData = google.visualization.arrayToDataTable(mapStatePopulationList);
+            var tbData = google.visualization.arrayToDataTable(mapStateTbList);;
 
-            var options = {
+            var populationOptions = {
                 region: 'IN',
                 displayMode: 'regions',
                 resolution: 'provinces'
             };
 
-            var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+            var tbOptions = {
+                region: 'IN',
+                displayMode: 'regions',
+                resolution: 'provinces'
+            };
 
-            chart.draw(data, options);
+            var populationChart = new google.visualization.GeoChart(document.getElementById('population_div'));
+            populationChart.draw(populationData, populationOptions);
+
+            var tbChart = new google.visualization.GeoChart(document.getElementById('tb_div'));
+            tbChart.draw(tbData, tbOptions);
         }
     </script>
 </head>
@@ -48,20 +68,41 @@
 <body>
     <div class="container">
         <legend>Wadhwani AI TB Data Visualizer</legend>
-        <br/>
-        <div id="regions_div" style="width: 900px; height: 500px;"></div>
+        <br />
 
-        <table border="1" cellpadding="2" cellspacing="2">
-            {% for row in data %}
-            <tr>
-                {% for d in row %}
-                <td>{{ d }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
+        <div class="row">
+            <div class="col-sm-4">
+                <table class="table table-striped table-responsive" border="1" cellpadding="2" cellspacing="2">
+                    <thead>
+                        <tr>
+                            <td>State</td>
+                            <td>Population(In Lakhs)</td>
+                            <td>Total TB Patients Notified</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            {% for d in row %}
+                            <td>{{ d }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-8">
+                <legend>Total TB Patients Notified Visualization</legend>
+                <div id="tb_div" style="width: 800px; height: 350px;"></div>
+            </div>
+            <div class="col-sm-8">
+                <legend>Population Visualization</legend>
+                <div id="population_div" style="width: 800px; height: 350px;"></div>
+            </div>
+        </div>
+
         <footer class="footer">
-                <p>©Wadhwani AI 2018</p>
+            <p>©Wadhwani AI 2018</p>
         </footer>
     </div>
 </body>
