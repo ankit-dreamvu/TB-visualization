@@ -8,6 +8,7 @@ This is a flask web application used to Upload the csv and visualize the csv dat
 4. GET and POST REST API error response code has to be added.
 5. Session has to be maintained for each upload.
 6. The google maps API key URL is exposed in the visualize.html, it should be sent via post call
+7. While parsing the csv, need to ignore first 3 rows in case clean csv is not uploaded.
 
 
 ## TODO: Clean up the code and organize the code to models.py
