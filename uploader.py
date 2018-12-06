@@ -87,13 +87,11 @@ def form():
 def visualize():
     conn = mysql.connect()
     cursor = conn.cursor()
-    sql = "Select state_name,populations_in_lakhs,total_tb_patients_notified from tb_case_notification;"
+    sql = """Select state_name,populations_in_lakhs,total_tb_patients_notified from tb_case_notification where state_name <>"Grand Total";"""
     cursor.execute(sql)
     conn.commit()
     records = cursor.fetchall()
-    # print records
-    for row in records:
-        print row
+
     return render_template('heatmap.html', data=records)
 
 

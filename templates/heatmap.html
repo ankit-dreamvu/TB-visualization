@@ -54,7 +54,8 @@
             var tbOptions = {
                 region: 'IN',
                 displayMode: 'regions',
-                resolution: 'provinces'
+                resolution: 'provinces',
+                colorAxis: {colors: ['#00853f', 'black', '#e31b23']},
             };
 
             var populationChart = new google.visualization.GeoChart(document.getElementById('population_div'));
