@@ -120,7 +120,7 @@ def upload_file():
     cursor.execute(sql)
     conn.commit()
 
-#   parse csv_input and jsonify
+#   parse csv_input
     for row in csv_input:
         state_dictionary = {0: row[0], 19: checked['date']}
         dict_of_data = {i: (0 if row[i].rstrip("%") == '' else float(
