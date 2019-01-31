@@ -2,6 +2,7 @@
 # Usage: pip install -r requirements.txt
 
 # Python requirements
+flask-mysql
 python-pip
 python-dev
 libmysqlclient-dev
